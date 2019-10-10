@@ -783,6 +783,18 @@ config ALTERA_ILC
 	  This enables the Interrupt Latency Counter driver for the Altera
 	  SOCFPGA platform.
 
+config HELLO_1
+	tristate "Module Hello 1"
+	help
+	  This prints "Hello, World!" after loading the module and "Goodbye, World!" after deloading the module.
+	  To see the output enter dmesg in the console.
+
+config HELLO_2
+	tristate "Module Hello 2"
+	help
+	  This prints with given parameter "Hello, <parameter>!" after loading the module and "Goodbye, <parameter>!" after deloading the module.
+	  To see the output enter dmesg in the console.
+
 source "drivers/misc/c2port/Kconfig"
 source "drivers/misc/eeprom/Kconfig"
 source "drivers/misc/cb710/Kconfig"

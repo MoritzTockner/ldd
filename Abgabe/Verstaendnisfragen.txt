@@ -1,0 +1,77 @@
+1.) Warum ist diese Versionsprüfung nötig?
+---------------------------------------------------------------------------------------------
+Damit die kompilierte Binärdatei zum verwendeten Linux Kernel kompatibel ist.
+Sind die Versionen unterschiedlich kann der Binärtreiber eventuell nicht mehr funktionieren
+=> keine stabile ABI (= application binary interface) und API (= application programmming interface)
+Da wir die selbe Kernelversion verwenden wollen, wird diese aus dem Status des aktuellen git-Repository abgeleitet.
+Somit wird in der .scmversion Datei der aktuelle git-Repository Zustand abgespeichert. Die localversion Datei hingegen wird 
+benötigt, um den Versionssuffix and die Versionsnummer anzuhängen. 
+In unserem Fall würde die Kernelversion wie folgt lauten: "4.9.0-de1soc"
+
+
+2.) Welche Informationen ergeben sich für das implementierte Kernelmodul?
+Beschreiben Sie die einzelnen Einträge und erklären Sie, woher die jeweiligen Informationen stammen (Quellcode, Konfigurationsdatei etc.).
+---------------------------------------------------------------------------------------------
+filename:	/home/hsd/hello2.ko
+version:	2.0
+description:	Module Hello 2
+author:		Moritz Tockner
+author:		Simon Schneeberger
+license:	GPL
+srcversion:	5657DC760B3C613CC9CD7A7
+depends:	
+intree:		Y
+vermagic:	4.9.0-de1soc SMP mod_unload ARMv7 p2v8
+parm:		who:charp
+
+filename:	/home/hsd/hello.ko
+version:	1.0
+description:	Module Hello
+author:		Moritz Tockner
+author:		Simon Schneeberger
+license:	GPL
+srcversion:	B9AFA11B3402D246D42B010
+depends:
+intree:		Y
+vermagic:	4.9.0-de1soc SMP mod_unload ARMv7 p2v8
+
+hello.c:
+MODULE_VERSION("1.0") --> version: 1.0 
+Numeriert die aktuelle version des moduls
+
+MODULE_LICENSE("GPL") --> license GPL
+Das Modul unterliegt der "GNU General Public License", was anderen Personen erlaubt die Software auszuführen, zu studieren, zu ändern und zu verbreiten.
+
+MODULE_DESCRIPTION("Module Hello") --> description: Module Hello
+Kurze beschreibung des Moduls.
+
+MODULE_AUTHOR(...) --> author: ...
+Autor(en) des Moduls.
+
+hello2.c:
+MODULE_VERSION("2.0") --> version: 2.0
+MODULE_LICENSE("GPL") --> license GPL
+MODULE_DESCRIPTION("Module Hello 2") --> description: Module Hello
+MODULE_AUTHOR(...) --> author: ...
+module_param(who, charp, 0) --> parm: who:charp
+Zeigt die Parameter des Moduls an, und dessen datentypen (hier char pointer).
+
+localversion:
+-de1soc --> vermagic: "Versionsnummer"-de1soc ...
+Version des Kernels, mit dem das Modul kompatibel ist.
+
+Makefile und Kconfig:
+Einträge für hello und hello2 hinzugefügt --> intree: Y
+Modul wird 'intree' zum kernel hinzugefügt.
+
+
+3.) Nennen Sie ein Ihrer Meinung nach sinnvolles Beispiel für einen Parameter eines beliebigen
+Moduls auf Ihrem Entwicklungssystem (nicht dem Zielsystem). Verwenden Sie dazu das
+sysfs-Interface unter /sys/module/<modulename>/parameters. Denken Sie daran,
+dass Ihnen auch der Quellcode der Module (lokal sowie online 2 ) bereitsteht, falls Sie der
+Auswirkung eines Parameters genauer nachgehen möchten.
+---------------------------------------------------------------------------------------------
+Beispiel: /sys/module/battery
+Bei diesem Modul kann das Zeitintervall für den Ladezustand der Batterie mittels dem Parameter
+"cache_time" eingestellt werden. Beispielsweise können 1000 (ms) eingestellt werden und für diesen
+Zeitraum wird der Akkustand abgespeichert und erst danach wieder neu abgerufen.
