@@ -3,7 +3,7 @@
 #include <linux/kernel.h>
 
 static char *who = "World";
-module_param(who, charp, 0);
+module_param(who, charp, 0000);
 
 static int __init hello_init(void)
 {
