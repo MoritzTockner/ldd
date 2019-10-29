@@ -783,6 +783,12 @@ config ALTERA_ILC
 	  This enables the Interrupt Latency Counter driver for the Altera
 	  SOCFPGA platform.
 
+config LED_PWM
+	tristate "Led PWM driver"
+	help
+	  This enables the pwm driver for LEDR 0 to 7.
+
+
 source "drivers/misc/c2port/Kconfig"
 source "drivers/misc/eeprom/Kconfig"
 source "drivers/misc/cb710/Kconfig"
