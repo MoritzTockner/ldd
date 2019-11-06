@@ -1,0 +1,37 @@
+1.) Der Zugriff auf die Hardware kann mittels Linux-Kernel-Schnittstellen für I/O-Ports oder I/O-
+Memory erfolgen. Welche der beiden Schnittstellen verwenden Sie am DE1-SoC-Computer
+und warum? Wie unterscheiden sich I/O-Zugriffe von Speicherzugriffen aus Programmsicht?
+--------------------------------------------------------------------------------------------
+Der DE1-SoC-Computer verwendet I/O-Memory (DE1-SoC_Computer_ARM.pdf - S. 1), weil der
+ARM Cortex A9-Prozessor im Cyclone V mit Memory Mapped Zugriffen arbeitet.
+Der Unterschied besteht darin, dass bei den I/O-Ports bereits im Programm unterschiedliche Befehle
+zum Zugriff auf Speicher oder auf I/O-Module verwendet werden. Beim I/O-Memory wird im Programm
+zwischen I/O- und Speicherzugriff nicht unterschieden.
+
+
+2.) Erläutern Sie (kurz!) das Konzept von virtuellem Speicher, vor allem den Nutzen für Be-
+triebssysteme. Wie wirkt sich der virtuelle Speicherzugriff auf die Implementierung des
+Gerätetreibers in dieser Übung aus?
+---------------------------------------------------------------------------------------------
+Konzept:
+Es werden jedem Prozess mit Adressen von 0 bis n-1 einen scheinbar zusammenhängenden lokalen Speicherbereich zur Verfügung gestellt.
+In Wirklichkeit besteht dieser Speicherbereich aus einzelnen Seiten definierter Größe („Pages“) innerhalb des virtuellen Adressraums des Prozesses. 
+Diese virtuellen Pages werden wiederum auf physische Pages abgebildet, die irgendwo im physischen Speicher liegen.
+Beim Zugriff eines Prozesses auf eine Speicheradresse übersetzt die Memory Management Unit (MMU) 
+mittels Seitentabelle des Systems diese in die zugehörige aktuelle physische Adresse.
+=> siehe Bild: virtueller_Speicher.jpeg
+
+Nutzen:
+Der große Nutzen davon ist, dass diverse Speicherbereiche auf Hardware mittels virtuellem Speicher neu gemappt werden, auf denen dann zugegriffen werden kann. 
+Es muss nicht der komplette physische Speicher abgebildet werden, auch nur Teilbereiche davon sind möglich.
+
+Auswirkung bei der Übung:
+Durch den virtuellen Speicherzugriff in dieser Übung muss nur die virtuelle Startadresse für die PWM LEDs bekannt sein.
+Der Speicherbereich muss nur anfangs angefordert, um diesen vor mehrfach Zugriffen zu schützen und am Ende freigegeben werden.
+In unserem Fall gilt die Adresse 0xFF203080, wobei jede LED mit 32-Bit über den Avalaon-Bus beschrieben wird. Dem Avalon-Bus wird somit nur 
+ein 32-Bit Wert beim Schreiben auf das gewünschte Register mitgegeben und 
+dieser erledigt damit die Konfigurierung des gewünschten Registers des PWM-Generators. 
+Der Implementierte PWM-Generator dimmt dementsprechend die beschriebene LED.
+Vorteile:
+ + der genaue Schreibzugriff muss nicht bekannt sein (Avalon-Bus erledigt Änderung am Register)
+ + einfache Verwendung (zusammenhängende Adressen)

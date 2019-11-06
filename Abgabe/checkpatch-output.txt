@@ -1,0 +1,15 @@
+WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
+#47: 
+new file mode 100644
+
+ERROR: Missing Signed-off-by: line(s)
+
+total: 1 errors, 1 warnings, 119 lines checked
+
+NOTE: For some of the reported defects, checkpatch may be able to
+      mechanically convert to the typical style using --fix or --fix-inplace.
+
+0001-Getting-rid-of-format-errors.patch has style problems, please review.
+
+NOTE: If any of the errors are false positives, please report
+      them to the maintainer, see CHECKPATCH in MAINTAINERS.
