@@ -84,3 +84,48 @@
 &usb1 {
 	status = "okay";
 };
+
+/ {
+	soc {
+		ledpwm0: ledpwm0@ff203080 {
+			compatible = "altr,de1soc-ledpwm";
+			reg = <0xFF203080 0x4>;
+		};
+		ledpwm1: ledpwm1@ff203084 {
+			compatible = "altr,de1soc-ledpwm";
+			reg = <0xFF203084 0x4>;
+		};
+		ledpwm2: ledpwm2@ff203088 {
+			compatible = "altr,de1soc-ledpwm";
+			reg = <0xFF203088 0x4>;
+		};
+		ledpwm3: ledpwm3@ff20308C {
+			compatible = "altr,de1soc-ledpwm";
+			reg = <0xFF20308C 0x4>;
+		};
+		ledpwm4: ledpwm4@ff203090 {
+			compatible = "altr,de1soc-ledpwm";
+			reg = <0xFF203090 0x4>;
+		};
+		ledpwm5: ledpwm5@ff203094 {
+			compatible = "altr,de1soc-ledpwm";
+			reg = <0xFF203094 0x4>;
+		};
+		ledpwm6: ledpwm6@ff203098 {
+			compatible = "altr,de1soc-ledpwm";
+			reg = <0xFF203098 0x4>;
+		};
+		ledpwm7: ledpwm7@ff20309C {
+			compatible = "altr,de1soc-ledpwm";
+			reg = <0xFF20309C 0x4>;
+		};
+		ledpwm8: ledpwm8@ff2030A0 {
+			compatible = "altr,de1soc-ledpwm";
+			reg = <0xFF2030A0 0x4>;
+		};
+		ledpwm9: ledpwm9@ff2030A4 {
+			compatible = "altr,de1soc-ledpwm";
+			reg = <0xFF2030A4 0x4>;
+		};
+	};
+};
