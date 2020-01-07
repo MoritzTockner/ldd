@@ -783,6 +783,12 @@ config ALTERA_ILC
 	  This enables the Interrupt Latency Counter driver for the Altera
 	  SOCFPGA platform.
 
+config PUSHBUTTON
+	tristate "Pushbutton driver"
+	help
+	  This enables the pushbutton driver to be able to read the
+	  key events.
+
 source "drivers/misc/c2port/Kconfig"
 source "drivers/misc/eeprom/Kconfig"
 source "drivers/misc/cb710/Kconfig"

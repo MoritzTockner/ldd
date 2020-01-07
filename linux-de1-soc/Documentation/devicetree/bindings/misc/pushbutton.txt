@@ -1,0 +1,5 @@
+Pushbutton driver for reading key events on the alter de1soc board.
+
+Required properties:
+- compatible :
+  - "altr,de1soc-pushbutton"

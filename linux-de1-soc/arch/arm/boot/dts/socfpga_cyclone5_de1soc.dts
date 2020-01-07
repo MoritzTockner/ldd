@@ -84,3 +84,14 @@
 &usb1 {
 	status = "okay";
 };
+
+/ {
+	soc {
+		pushbutton: pushbutton@ff200058 {
+			compatible = "altr,de1soc-pushbutton";
+			reg = <0xFF200058 0x08>;
+			interrupts = <0x0 0x29 0x01>;
+			interrupt-parent = <&intc>;
+		};
+	};
+};
